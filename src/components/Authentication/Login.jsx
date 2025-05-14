@@ -1,7 +1,11 @@
 import React, { useRef, useState } from "react";
-import Header from "../Header/Header";
 import { checkValidData } from "../../utils/checkValidation";
-
+import Header from "../Header/Header";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../../utils/firebase/firebase";
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -17,6 +21,47 @@ const Login = () => {
     // console.log(email.current.value,"-", password.current.value);
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
+    if (message) return;
+
+    // Now Here the logic for the SignIn and SignUp
+
+    if (!isSignIn) {
+      // sign Up Logic
+
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          setErrorMessage(errorCode, "--", errorMessage);
+        });
+    } else {
+      // Sign In logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          setErrorMessage(errorCode, "--", errorMessage);
+        });
+    }
   };
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-black text-white">
@@ -60,7 +105,6 @@ const Login = () => {
             className="w-full p-3 rounded-md bg-zinc-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600"
           />
           <p class="text-red-600 text-sm mt-1 font-medium">{errorMessage}</p>
-
 
           <button
             onSubmit={(e) => {
