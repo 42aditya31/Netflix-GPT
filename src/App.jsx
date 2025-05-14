@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import Main from "./components/MainPage/Main";
 
 const App = () => {
   return (
     <div>
-      <h1 className='text-9xl font-bold text-pink-50'> Hello Ji </h1>
+      <Main />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
