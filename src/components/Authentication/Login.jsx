@@ -1,12 +1,23 @@
-import React,{useState} from 'react'
-import Header from '../Header/Header'
+import React, { useRef, useState } from "react";
+import Header from "../Header/Header";
+import { checkValidData } from "../../utils/checkValidation";
 
 const Login = () => {
-const [isSignIn, setIsSignIn] = useState(true);
+  const [isSignIn, setIsSignIn] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  const toggleSignUp = () =>{
-    setIsSignIn(!isSignIn)
-  }
+  const toggleSignUp = () => {
+    setIsSignIn(!isSignIn);
+  };
+
+  const email = useRef(null);
+  const password = useRef(null);
+
+  const handleSubmitBtn = () => {
+    // console.log(email.current.value,"-", password.current.value);
+    const message = checkValidData(email.current.value, password.current.value);
+    setErrorMessage(message);
+  };
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-black text-white">
       {/* Background Image */}
@@ -25,33 +36,61 @@ const [isSignIn, setIsSignIn] = useState(true);
       {/* Centered Form */}
       <div className="relative opacity-85 z-10 flex justify-center items-center h-full">
         <form className="bg-black bg-opacity-75 p-10 rounded-md w-full max-w-md space-y-6">
-          <h2 className="text-3xl font-bold text-white text-center">{isSignIn ? "Sign In" : "Sign Up"}</h2>
+          <h2 className="text-3xl font-bold text-white text-center">
+            {isSignIn ? "Sign In" : "Sign Up"}
+          </h2>
+
+          {!isSignIn && (
+            <input
+              type="text"
+              placeholder="Full Name"
+              className="w-full p-3 rounded-md bg-zinc-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600"
+            />
+          )}
           <input
+            ref={email}
             type="email"
             placeholder="Email"
             className="w-full p-3 rounded-md bg-zinc-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600"
           />
           <input
+            ref={password}
             type="password"
             placeholder="Password"
             className="w-full p-3 rounded-md bg-zinc-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600"
           />
+          <p class="text-red-600 text-sm mt-1 font-medium">{errorMessage}</p>
+
+
           <button
+            onSubmit={(e) => {
+              e.preventDefault;
+            }}
+            onClick={handleSubmitBtn}
             type="submit"
             className="w-full bg-red-600 cursor-pointer hover:bg-red-700 transition-colors p-3 rounded-md font-semibold"
           >
-           {isSignIn ? "Sign In" : "Sign Up"}
+            {isSignIn ? "Sign In" : "Sign Up"}
           </button>
           <div className="text-center text-sm text-gray-400">
-            <a href="https://help.netflix.com/en" className="hover:underline ">Need help?</a>
+            <a href="https://help.netflix.com/en" className="hover:underline ">
+              Need help?
+            </a>
           </div>
-          <p className="text-gray-400 text-sm text-center" onClick={toggleSignUp}>
-          {isSignIn ? "New to Netflix ?" : "Already a User ?"} <a href="#" className="text-white cursor-pointer hover:underline">{isSignIn ? "Sign In Now..." : "Sign Up Now..."}</a>.
+          <p
+            className="text-gray-400 text-sm text-center"
+            onClick={toggleSignUp}
+          >
+            {isSignIn ? "New to Netflix ?" : "Already a User ?"}{" "}
+            <a href="#" className="text-white cursor-pointer hover:underline">
+              {isSignIn ? "Sign Up Now" : "Sign In Now"}
+            </a>
+            .
           </p>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
