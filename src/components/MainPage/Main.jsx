@@ -22,7 +22,7 @@ const Main = () => {
   ]);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, (user) => {
       if (user) {
         //User is signed In
         const { uid, email, displayName, photoURL } = user;
@@ -39,6 +39,7 @@ const Main = () => {
         disptch(removeUser());
       }
     });
+
   }, []);
 
   return (

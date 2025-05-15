@@ -10,6 +10,7 @@ import { auth } from "../../utils/firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../store/userSlice";
+import { BACKGROUND_IMAGE, USER_PHOTO } from "../../utils/constant";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const Login = () => {
 
         await updateProfile(user, {
           displayName: name.current.value,
-          photoURL: "https://avatars.githubusercontent.com/u/186927267?v=4",
+          photoURL:USER_PHOTO,
         });
 
         await auth.currentUser.reload(); // Refresh the user's profile
@@ -83,7 +84,7 @@ const Login = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/fc164b4b-f085-44ee-bb7f-ec7df8539eff/d23a1608-7d90-4da1-93d6-bae2fe60a69b/IN-en-20230814-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+          src={BACKGROUND_IMAGE}
           alt="Netflix Background"
           className="w-full h-full object-cover"
         />
