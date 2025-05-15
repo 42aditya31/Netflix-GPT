@@ -9,6 +9,7 @@ const HeroSection = () => {
   const mainMovie = movies[16];
   console.log(mainMovie);
   return (
+    
     <div>
       <h1 className="text-pink-300 text-9xl font-bold">HeroSection</h1>
       <img src={mainMovie.poster_path} alt="" />
