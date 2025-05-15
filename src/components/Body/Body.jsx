@@ -1,6 +1,7 @@
 
 import useNowPlayingMovies from "../../hooks/useNowPlayingMovies";
 import Header from "../Header/Header";
+import HeroSection from "../HeroSection/HeroSection";
 
 
 const Body = () => {
@@ -8,6 +9,7 @@ const Body = () => {
   return (
     <div>
       <Header />
+      <HeroSection/>
     </div>
   );
 };
