@@ -11,7 +11,7 @@ const VideoListSection = () => {
       <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
       <MovieList title={"Popular"} movies={movies.popularMovies} />
       <MovieList title={"Top Rated"} movies={movies.topRatedMovies} />
-      <MovieList title={"Upcoming"} movies={movies.nowPlayingMovies} />
+      <MovieList title={"Upcoming"} movies={movies.upComingMovies} />
       <MovieList title={"Trending"} movies={movies.nowPlayingMovies} />
       {/* <MovieList title={"Rated Top"} movies={movies.nowPlayingMovies} />/ */}
     </div>
