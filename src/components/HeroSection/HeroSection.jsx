@@ -13,11 +13,10 @@ const HeroSection = () => {
   const { original_title, overview, id } = mainMovie;
 
   return (
-    <div >
-      
+    <div>
       <VideoTitle title={original_title} overview={overview} />
 
-      <VideoBackGround movieId={id}/>
+      <VideoBackGround movieId={id} />
     </div>
   );
 };
