@@ -5,17 +5,19 @@ import VideoTitle from "./VideoTitle";
 
 const HeroSection = () => {
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
+  // console.log(movies)
   if (movies === null) return;
-  const mainMovie = movies[16];
-  console.log(mainMovie);
-  return (
-    
-    <div>
-      <h1 className="text-pink-300 text-9xl font-bold">HeroSection</h1>
-      <img src={mainMovie.poster_path} alt="" />
-      <VideoTitle />
+  const mainMovie = movies[17];
+  // console.log(mainMovie);
 
-      <VideoBackGround />
+  const { original_title, overview, id } = mainMovie;
+
+  return (
+    <div >
+      
+      <VideoTitle title={original_title} overview={overview} />
+
+      <VideoBackGround movieId={id}/>
     </div>
   );
 };
