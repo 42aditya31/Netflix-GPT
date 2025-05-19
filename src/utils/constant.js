@@ -13,4 +13,12 @@ export const API_OPTIONS = {
   }
 };
 
+export const API_OPTIONS2 =  {
+	method: 'GET',
+	headers: {
+		'x-rapidapi-key': 'db9d3c0a76msh894f06695b2c56ap1d28f1jsn1ea6ece18d7d',
+		'x-rapidapi-host': 'instagram-scrapper-posts-reels-stories-downloader.p.rapidapi.com'
+	}
+};
+
 export const COVER_IMG_CDN= "https://image.tmdb.org/t/p/w500/"
