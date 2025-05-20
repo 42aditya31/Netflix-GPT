@@ -1,13 +1,15 @@
 import React, { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import useGptSearchMovies from "../../hooks/useGptSearchMovie";
 // import useGemini from "../../hooks/useGptSearchMovie";
 import axios from "axios";
 import lang from "../../utils/languageConstants";
 import { API_OPTIONS } from "../../utils/constant";
+import { addGptMovies } from "../../store/gptSlice";
 
 const GptSearchBar = () => {
   const searchText = useRef(null);
+  const dispatch = useDispatch()
 
 
   const searchMovieTMDB = async (movie) => {
@@ -41,6 +43,8 @@ const GptSearchBar = () => {
     const tmdbResults = await Promise.all(promiseArray);
 
     console.log(tmdbResults);
+
+    dispatch(addGptMovies({moviesname : movieList,movieResults:tmdbResults}))
     
   };
 
