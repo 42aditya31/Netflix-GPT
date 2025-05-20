@@ -4,18 +4,29 @@ import { useSelector } from "react-redux";
 // import useGemini from "../../hooks/useGptSearchMovie";
 import axios from "axios";
 import lang from "../../utils/languageConstants";
+import { API_OPTIONS } from "../../utils/constant";
 
 const GptSearchBar = () => {
   const searchText = useRef(null);
 
 
-  
+  const searchMovieTMDB = async (movie) => {
+    const data = await fetch(
+      "https://api.themoviedb.org/3/search/movie?query=" +
+        movie +
+        "&include_adult=false&language=en-US&page=1",
+      API_OPTIONS
+    );
+    const json = await data.json();
+    return json.results;
+  };
+ 
 
   const handleSearchBtnClick = async () => {
     const prompt =
       "Act as a Movie Recommendation system and suggest some movies for the query: " +
       searchText.current.value +
-      ". Only give me names of 5 movies, comma separated. Example: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya.  Make sure you have not give any addition text just Movies name only and only";
+      ". Only give me names of 5 movies, comma separated. Example: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya.  Make sure you have not give any addition text just Movies name only and only ";
 
     const response = await axios.post("http://localhost:8000/api/gemini", {
       prompt,
@@ -23,9 +34,14 @@ const GptSearchBar = () => {
 
     console.log(response.data);
     const movies = response.data?.result
-    console.log(typeof(movies))
     const movieList = movies.split(",")
-    console.log(movieList)
+    const promiseArray = movieList.map((movie) => searchMovieTMDB(movie));
+    // [Promise, Promise, Promise, Promise, Promise]
+
+    const tmdbResults = await Promise.all(promiseArray);
+
+    console.log(tmdbResults);
+    
   };
 
 
