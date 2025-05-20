@@ -1,22 +1,33 @@
 import React, { useRef } from "react";
 import { useSelector } from "react-redux";
-import useGptSearchMovies from "../../hooks/useGptSearchMovie";
+// import useGptSearchMovies from "../../hooks/useGptSearchMovie";
+// import useGemini from "../../hooks/useGptSearchMovie";
+import axios from "axios";
 import lang from "../../utils/languageConstants";
 
 const GptSearchBar = () => {
   const searchText = useRef(null);
 
-  const searchMovies = useGptSearchMovies();
 
-  const handleSearchBtnClick = () => {
+  
+
+  const handleSearchBtnClick = async () => {
     const prompt =
-      "Act as a Movie Recommendation system and suggest some movies for the query : " +
+      "Act as a Movie Recommendation system and suggest some movies for the query: " +
       searchText.current.value +
-      ". only give me names of 5 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya";
+      ". Only give me names of 5 movies, comma separated. Example: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya.  Make sure you have not give any addition text just Movies name only and only";
 
-    const result = searchMovies(prompt);
-    console.log(result);
+    const response = await axios.post("http://localhost:8000/api/gemini", {
+      prompt,
+    });
+
+    console.log(response.data);
+    const movies = response.data?.result
+    console.log(typeof(movies))
+    const movieList = movies.split(",")
+    console.log(movieList)
   };
+
 
   const langKey = useSelector((store) => store.config.lang);
   return (
