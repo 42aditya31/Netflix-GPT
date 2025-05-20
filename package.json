@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/genai": "^0.15.0",
     "@reduxjs/toolkit": "^2.8.1",
     "@tailwindcss/vite": "^4.1.6",
     "firebase": "^11.7.1",

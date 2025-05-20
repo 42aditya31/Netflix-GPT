@@ -8,7 +8,8 @@ import GPTSearchPage from "../GPTSearchFeture/GPTSearchPage";
 import Header from "../Header/Header";
 import HeroSection from "../HeroSection/HeroSection";
 import VideoListSection from "../VideoListSection/VideoListSection";
-import useRandom from "../../hooks/useRandom";
+
+
 
 
 const Body = () => {
@@ -17,7 +18,7 @@ const Body = () => {
   usePopularMovies();
   useTopRatedMovies();
   useUpComingMovies();
-  useRandom();
+
   return (
     <div>
       <Header />
