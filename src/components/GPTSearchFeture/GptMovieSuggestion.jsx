@@ -1,12 +1,13 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
 import MovieList from "../VideoListSection/MovieList"
+import ShimmerCard from './ShimmerCard'
 
 const GptMovieSuggestion = () => {
 
   const {movieResults,moviesname } = useSelector((store)=>store.gpt)
 
-if (!moviesname) return null;
+if (!moviesname) return <ShimmerCard/>;
 
   return (
     <div className="p-4 m-4 bg-black text-white bg-opacity-90">

@@ -1,4 +1,3 @@
-// MovieCard.js
 import React from "react";
 import { COVER_IMG_CDN } from "../../utils/constant";
 
